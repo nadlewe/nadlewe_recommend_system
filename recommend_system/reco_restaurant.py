@@ -21,7 +21,7 @@ except Exception as e:
 
 kinds = ["양식", "막걸리"]
 
-def reco_restaurant(kinds):
+def reco_restaurant(kinds, price):
     pattern = re.compile(fr'\b(?:{"|".join(kinds)})\b', flags=re.IGNORECASE)
     matching_rows = df[df['tags'].apply(lambda x: bool(pattern.search(x)) if pd.notna(x) else False)]
  
@@ -42,14 +42,17 @@ def reco_restaurant(kinds):
         # print(ran)
         result = result_list[ran]
         # print(json.dumps(result_list, ensure_ascii=False, indent=2))
-
+        if result["Place Price"] == -1:
+            price += 0
+        else:
+            price += result["Place Price"]
         # print(result)
-        return(result)
+        return(result, price, result["Place Image"])
     else:
         print(f"'{kinds}'에 해당하는 레스토랑이 없습니다.")
 
 
-reco_restaurant(kinds)
+# reco_restaurant(kinds,)
             # placeName: string
             # rate: double
             # menu: string

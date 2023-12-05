@@ -19,7 +19,7 @@ except FileNotFoundError:
 except Exception as e:
     print(f"오류 발생: {e}")
 
-def reco_cafe(kinds):
+def reco_cafe(kinds, price):
     pattern = re.compile(fr'\b(?:{"|".join(kinds)})\b', flags=re.IGNORECASE)
     matching_rows = df[df['tags'].apply(lambda x: bool(pattern.search(x)) if pd.notna(x) else False)]
  
@@ -39,12 +39,14 @@ def reco_cafe(kinds):
         val = len(result_list)
         ran = random.randint(1, val)
         result = result_list[ran]
-
-        # print(result)
-        return(result) 
+        if result["Place Price"] == -1:
+            price += 0
+        else:
+            price += result["Place Price"]
+        return(result, price) 
     else:
         print(f"'{kinds}'에 해당하는 카페가 없습니다.")
 
-# kinds = ["한식", "막걸리"]
+# kinds = ["한식", "막걸리", ]
 
-# reco_cafe(kinds)
+# print(reco_cafe(kinds, 0))

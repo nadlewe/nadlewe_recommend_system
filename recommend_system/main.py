@@ -38,17 +38,25 @@ def get_json():
                 kinds = data.get("kinds", [])
 
                 result_list= []
-
+                course_price = 0
                 # 3. themes의 값을 순서대로 확인하여 kinds값에 일치하는 데이터프레임의 행 출력
-                for index, theme in enumerate(themes):
+                for index, theme in enumerate(themes):                    
                     if theme == "식사":
                         # kinds의 값을 함수의 인자로 넘겨주어 조건에 맞는 행 출력
-                        restaurant_info = reco_restaurant(kinds)
+                        restaurant_info, menu_price, place_img = reco_restaurant(kinds, course_price)
                         result_list.append(restaurant_info)
+                        if course_price <= maxPrice:
+                            course_price += menu_price
+                        else:
+                            course_price += 0     
                         print(restaurant_info)
                     elif theme == '카페':
-                        cafe_info = reco_cafe(kinds)
+                        cafe_info, cafe_price = reco_cafe(kinds, course_price)
                         result_list.append(cafe_info)
+                        if course_price <= maxPrice:
+                            course_price += cafe_price
+                        else:
+                            course_price += 0    
                         print(cafe_info)
                     elif theme == '활동':
                         activity_info = reco_activity(kinds)
@@ -58,7 +66,15 @@ def get_json():
                         print(f"[{theme}] = 정보를 찾을 수 없음")
 
                 print(json.dumps(result_list, ensure_ascii=False, indent=2))
-                final_result.append(result_list)
+                
+                result_info = {
+                    "courseName": f"코스{i}",
+                    "places": result_list,
+                    "coursePrcice" : course_price,
+                    "courseImage": place_img,
+                }
+
+                final_result.append(result_info)
             
             else:
                 return {'message': 'JSON 데이터를 받지 못했습니다.'}, 400
