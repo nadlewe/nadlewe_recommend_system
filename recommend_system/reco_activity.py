@@ -6,7 +6,7 @@ import re
 import random
 
 # CSV 파일 경로 설정
-file_path = '/Users/chominjun/Desktop/Workspace/PYTHON_workspace/recommend_system/Data/activity_info.csv'
+file_path = '/Users/kangdonghee/Desktop/2023-2/SB&Start-up/소비창/RS/nadlewe_recommend_system/Data_v2/activity_info.csv'
 
 # CSV 파일 읽기
 try:
@@ -19,6 +19,10 @@ except Exception as e:
     print(f"오류 발생: {e}")
 
 def reco_activity(kinds):
+    lists = ["게임/오락", "힐링", "방탈출", "영화"]
+    if kinds not in lists:
+        kinds.append(lists[random.randint(0, len(lists)-1)])
+        # print(kinds)
     pattern = re.compile(fr'\b(?:{"|".join(kinds)})\b', flags=re.IGNORECASE)
     matching_rows = df[df['tags'].apply(lambda x: bool(pattern.search(x)) if pd.notna(x) else False)]
  
@@ -43,5 +47,5 @@ def reco_activity(kinds):
         print(f"'{kinds}'에 해당하는 활동이 없습니다.")
 
 
-# kinds=["맥주/소주", "한식", "영화"]
+# kinds=["맥주/소주", "한식"]
 # reco_activity(kinds)
