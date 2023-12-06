@@ -27,11 +27,11 @@ def reco_cafe(kinds, price):
         result_list = []
         for index, row in matching_rows.iterrows():
             cafe_info = {
-                "Place Name": row['name'],
-                "Rate": row['rate'],
-                "Menu": row['representative_menu'],
-                "Place Price": row['place_price'],
-                "Place Image": row['image_URL']
+                "placeName": row['name'],
+                "rate": row['rate'],
+                "menu": row['representative_menu'],
+                "placePrice": row['place_price'],
+                "placeImage": row['image_URL']
             }
             result_list.append(cafe_info)
         # print("추천하는 카페 정보:")
@@ -39,10 +39,10 @@ def reco_cafe(kinds, price):
         val = len(result_list)
         ran = random.randint(1, val)
         result = result_list[ran]
-        if result["Place Price"] == -1:
+        if result["placePrice"] == -1:
             price += 0
         else:
-            price += result["Place Price"]
+            price += result["placePrice"]
         return(result, price) 
     else:
         print(f"'{kinds}'에 해당하는 카페가 없습니다.")

@@ -30,11 +30,11 @@ def reco_activity(kinds):
         result_list = []
         for index, row in matching_rows.iterrows():
             restaurant_info = {
-                "Place Name": row['name'],
-                "Rate": row['rate'],
+                "placeName": row['name'],
+                "rate": row['rate'],
                 "menu": '',
-                "Place Price": '',
-                "Place Image": row['image_URL']
+                "placePrice": '',
+                "placeImage": row['image_URL']
             }
             result_list.append(restaurant_info)
         # print("추천하는 활동 정보:")

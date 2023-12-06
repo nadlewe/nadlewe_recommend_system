@@ -29,11 +29,11 @@ def reco_restaurant(kinds, price):
         result_list = []
         for index, row in matching_rows.iterrows():
             restaurant_info = {
-                "Place Name": row['name'],
-                "Rate": row['rate'],
-                "Menu": row['representative_menu'],
-                "Place Price": row['place_price'],
-                "Place Image": row['image_URL']
+                "placeName": row['name'],
+                "rate": row['rate'],
+                "menu": row['representative_menu'],
+                "placePrice": row['place_price'],
+                "placeImage": row['image_URL']
             }
             result_list.append(restaurant_info)
         # print("추천하는 레스토랑 정보:")
@@ -42,12 +42,12 @@ def reco_restaurant(kinds, price):
         # print(ran)
         result = result_list[ran]
         # print(json.dumps(result_list, ensure_ascii=False, indent=2))
-        if result["Place Price"] == -1:
+        if result["placePrice"] == -1:
             price += 0
         else:
-            price += result["Place Price"]
+            price += result["placePrice"]
         # print(result)
-        return(result, price, result["Place Image"])
+        return(result, price, result["placeImage"])
     else:
         print(f"'{kinds}'에 해당하는 레스토랑이 없습니다.")
 
