@@ -6,7 +6,7 @@ import re
 import random
 
 # CSV 파일 경로 설정
-file_path = './Data_v2/activity_info.csv'
+file_path = 'recommend_system/Data_v2/activity_info.csv'
 
 # CSV 파일 읽기
 try:
@@ -32,6 +32,8 @@ def reco_activity(kinds):
             restaurant_info = {
                 "Place Name": row['name'],
                 "Rate": row['rate'],
+                "menu": '',
+                "Place Price": '',
                 "Place Image": row['image_URL']
             }
             result_list.append(restaurant_info)

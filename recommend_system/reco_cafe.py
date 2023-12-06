@@ -7,7 +7,7 @@ import json
 import random
 
 # CSV 파일 경로 설정
-file_path = './Data_v2/cafe_info.csv'
+file_path = 'recommend_system/Data_v2/cafe_info.csv'
 
 # CSV 파일 읽기
 try:
